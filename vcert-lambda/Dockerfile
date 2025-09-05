@@ -5,7 +5,7 @@ FROM public.ecr.aws/lambda/python:3.13
 WORKDIR /var/task
 
 # Install curl
-RUN yum install -y curl && yum clean all
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # Copy vcert binary
 COPY vcert /usr/local/bin/vcert
