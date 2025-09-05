@@ -16,7 +16,7 @@ phases:
 
   build:
     commands:
-      - cd infra
+      - cd Infra
       - echo "Planning Terraform..."
       - terraform plan -out=tfplan
       - echo "Applying Terraform..."
