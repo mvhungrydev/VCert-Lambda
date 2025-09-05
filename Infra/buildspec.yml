@@ -11,16 +11,16 @@ phases:
 
   pre_build:
     commands:
+      - cd Infra
       - echo "Initializing Terraform..."
       - terraform init -input=false
 
-  build:
-    commands:
-      - cd Infra
-      - echo "Planning Terraform..."
-      - terraform plan -out=tfplan
-      - echo "Applying Terraform..."
-      - terraform apply -auto-approve tfplan
+build:
+  commands:
+    - echo "Planning Terraform..."
+    - terraform plan -var "account_id=$ACCOUNT_ID" -var "image_tag=$IMAGE_TAG" -out=tfplan
+    - echo "Applying Terraform..."
+    - terraform apply -var "account_id=$ACCOUNT_ID" -var "image_tag=$IMAGE_TAG" -auto-approve tfplan
 
 artifacts:
   files:
