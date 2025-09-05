@@ -8,6 +8,10 @@ WORKDIR /var/task
 COPY vcert /usr/local/bin/vcert
 RUN chmod +x /usr/local/bin/vcert
 
+# Install Python dependencies
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
 # Copy Python handler script
 COPY app.py ${LAMBDA_TASK_ROOT}
 
