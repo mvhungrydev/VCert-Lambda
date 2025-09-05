@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.13
+    commands:
+      - echo "Installing Terraform..."
+      - curl -Lo terraform.zip $TFVER
+      - unzip terraform.zip && mv terraform /usr/local/bin/ && terraform -version
+
+  pre_build:
+    commands:
+      - echo "Initializing Terraform..."
+      - terraform init -input=false
+
+  build:
+    commands:
+      - echo "Planning Terraform..."
+      - terraform plan -out=tfplan
+      - echo "Applying Terraform..."
+      - terraform apply -auto-approve tfplan
+
+artifacts:
+  files:
+    - "**/*"
