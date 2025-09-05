@@ -4,9 +4,6 @@ FROM public.ecr.aws/lambda/python:3.13
 # Set working directory
 WORKDIR /var/task
 
-# Install curl
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
-
 # Copy vcert binary
 COPY vcert /usr/local/bin/vcert
 RUN chmod +x /usr/local/bin/vcert

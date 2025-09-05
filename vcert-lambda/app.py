@@ -1,4 +1,5 @@
 import subprocess
+import requests
 
 def lambda_handler(event, context):
     # TOdos: fetch secretfrom AWS Secrets Manager
@@ -16,9 +17,16 @@ def lambda_handler(event, context):
             check=True
         )
 
+        # Sample GET request to a public API
+        api_response = requests.get("https://api.github.com/")
+        api_body = api_response.text
+
         return {
             "statusCode": 200,
-            "body": result.stdout.strip()
+            "body": {
+                "vcert_output": result.stdout.strip(),
+                "api_response": api_body
+            }
         }
     except subprocess.CalledProcessError as e:
         return {
